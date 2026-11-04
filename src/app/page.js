@@ -26,7 +26,7 @@ export default function Home() {
         Welcome To COMIC<span className="text-red-600">VERSE</span>
       </h1>
 
-      <p className="text-2xl font-">
+      <p className="text-2xl font-bebasNeue">
         Step into the world of comics! Discover iconic heroes,
         explore legendary characters, and find your favorites from across the comic universe.
         Whether you're a longtime fan or just getting started,
