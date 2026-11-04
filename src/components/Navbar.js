@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {
 
@@ -11,17 +13,20 @@ export default function Navbar() {
         const supabase = createClient();
 
         async function getUser() {
-        const { data: { user } } = await supabase.auth.getUser();
+            const { data: { user } } = await supabase.auth.getUser();
 
-        setEmail(user?.email || null);
-    }
+            setEmail(user?.email || null);
+        }
+
         getUser();
-        const [data, {subscription} } =
+
+        const { data: { subscription } } =
             supabase.auth.onAuthStateChange((event, session) => {
                 setEmail(session?.user?.email || null);
             });
 
         return () => subscription.unsubscribe();
+
     }, []);
 
     return (
@@ -34,19 +39,28 @@ export default function Navbar() {
                 <div className="flex gap-6">
                     <Link href="/">Home</Link>
                     <Link href="/search">Search</Link>
-                    <Link href="/login">Login</Link>
                     <Link href="/favorites">Favorites</Link>
 
-                    {user ? (
-                    <span className="text-gray-300">
-                        {user.email}
-                    </span>
-                ) : (
-                    <Link href="/login">
-                        Sign In
-                    </Link>
-                )}
+                    {email ? (
+    <div className="relative group">
+        <button className="text-gray-300 hover:text-red-500 transition">
+            {email}
+            </button>
 
+            <div className="absolute right-0 top-full hidden group-hover:block pt-2 z-50">
+                <div className="bg-gray-900 border border-gray-800 rounded-lg shadow-xl p-2 min-w-32">
+                    <LogoutButton />
+                </div>
+            </div>
+        </div>
+    ) : (
+        <Link
+            href="/login"
+            className="text-gray-300 hover:text-red-500 transition"
+        >
+            Sign In
+        </Link>
+    )}
                 </div>
             </div>
         </nav>
