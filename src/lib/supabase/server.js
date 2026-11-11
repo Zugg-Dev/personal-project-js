@@ -18,7 +18,7 @@ export async function createClient() {
                             cookieStore.set(name, value, options)
                         );
                     } catch {
-                        // Cookie updates may not be allowed in Server Components.
+                        console.error("Cookies failed");
                     }
                 },
             },

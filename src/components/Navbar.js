@@ -30,14 +30,16 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="bg-gray-950 border-b border-red-600/30">
+        <nav className="bg-gray-950 border-b border-red-600/40">
             <div className="flex items-center justify-between p-4">
                 <Link href="/" className="text-2xl font-black text-white">
                     COMIC<span className="text-red-600">VERSE</span>
                 </Link>
 
                 <div className="flex gap-6">
-                    <Link href="/">Home</Link>
+                    <Link 
+                    className="text-gray-300 hover:text-red-500 transition"
+                    href="/">Home</Link>
                     <Link href="/search">Search</Link>
                     <Link href="/favorites">Favorites</Link>
 
